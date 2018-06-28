@@ -1,0 +1,13 @@
+{%  extends 'upploudbase.html' %}
+
+{% block content %}
+    <div class="logindiv">
+        <h2>Upload image</h2>
+            <form method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <small>Separate tags with commas. Tags are case insensitive. Max length for tag is 20 characters.</small><br>
+                <button type="submit">Upload</button>
+            </form>
+    </div>
+{% endblock %}

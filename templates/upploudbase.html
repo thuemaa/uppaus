@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upp_loud</title>
+    <link rel="stylesheet" href="{% static 'css/upploudstyle.css' %}">
+</head>
+<body>
+    <nav class="navigationbar">
+        <a href="{% url 'upploudhome' %}"><h3>upp_loud &#x1F635</h3></a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'upload' %}"><h3>Upload image</h3></a>
+            <a href="{% url 'logout' %}"><h4>Logout</h4></a>
+            <a href="{% url 'userimages' %}"><h4>{{ user.username }}</h4></a>
+        {% else %}
+            <a href="{% url 'userlogin' %}"><h4>Login</h4></a>
+        {% endif %}
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

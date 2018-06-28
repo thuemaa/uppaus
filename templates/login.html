@@ -1,0 +1,13 @@
+{%  extends 'upploudbase.html' %}
+
+{% block content %}
+    <div class="logindiv">
+        <h2>Login</h2>
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Log in</button>
+            </form>
+        <a href="{% url 'usersignup' %}">Sign up</a>
+    </div>
+{% endblock %}

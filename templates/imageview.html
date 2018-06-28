@@ -1,0 +1,39 @@
+{%  extends 'upploudbase.html' %}
+
+{% load tz %}
+
+{% block content %}
+    <div class="view_container_div">
+        <div class="view_image_div">
+            <img src="{{ img.file.url }}">
+        </div>
+        <div class="view_description_div">
+            <h3>{{ img.description }}</h3>
+            <div class="view_tags_div">Tags:
+                {% for t in img.tags.all %}
+                    {% if forloop.last %}
+                        {{ t.name }}
+                    {% else %}
+                        {{ t.name }},
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="view_comments_div">
+            <table class="comment_table">
+                {%  for comment in comments %}
+                    <tr>
+                        <td> [{{ comment.date|date:'d.m.y H:i:s'}}] <span class="commentnick">{{ comment.nick }}:</span> {{ comment.comment }}  </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if user.is_authenticated %}
+            <form class="commentform" method="POST">
+                {% csrf_token %}
+                <input type="text" name="commentfield">
+                <button type="submit" class="commentbutton">Comment</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
