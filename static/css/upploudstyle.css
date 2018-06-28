@@ -123,6 +123,11 @@ body {
 .commentnick {
     font-weight: bold;
 }
+
+.timefield {
+    font-size: 0.8rem;
+    text-decoration: underline;
+}
 /*------------------------------------------------*/
 
 /*page navigation */
