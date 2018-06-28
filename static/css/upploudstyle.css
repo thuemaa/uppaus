@@ -54,6 +54,11 @@ body {
     margin: 15px;
     padding: 0;
     border: 1px solid black;
+    text-align:center;
+
+    display: flex;
+    align-items: center;
+    /*border: 1px solid black;*/
 }
 
 .image_thumbnail_div img {
@@ -97,7 +102,8 @@ body {
 }
 
 .commentbutton {
-    width: 13%;
+    width: 14%;
+    background-color: #777777;
 }
 
 .comment_table {
@@ -140,12 +146,12 @@ body {
 }
 
 .pagenavigation_div input[type=text] {
-    width: 2rem;
+    width: 1rem;
     text-align: center;
 }
 
 .maxpage_span {
-    text-decoration: overline;
+    text-weight: bold;
 }
 
 /*-----------------------------------------------*/

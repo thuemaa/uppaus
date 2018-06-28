@@ -3,10 +3,10 @@
 
 {% block content %}
     <div class="pagenavigation_div">
-        <a href=""><<< </a>
-        <input type="text" value="{{ cur_page }}">
-        <a href=""> >>></a><br>
-        <span class="maxpage_span">125</span>
+        {% if cur_page != 1%}<a href="{% url 'upploudhome' cur_page=prev_page %}"><< </a>{%  endif %}
+        <input type="text" value="{{ cur_page }}">  /  <span class="maxpage_span">{{ max_pages }}</span>
+        {% if cur_page < max_pages %}<a href="{% url 'upploudhome' cur_page=next_page %}"> >></a><br>{% endif %}
+
     </div>
 
     <div class="image_container_div" xmlns:http="http://www.w3.org/1999/xhtml">
