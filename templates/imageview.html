@@ -23,7 +23,7 @@
             <table class="comment_table">
                 {%  for comment in comments %}
                     <tr>
-                        <td> <span class="timefield"> [{{ comment.date|date:'d.m.y H:i:s'}}]</span><span class="commentnick">{{ comment.nick }}:</span> {{ comment.comment }}  </td>
+                        <td> <span class="timefield"> [{{ comment.date|date:'d.m.y H:i:s'}}] </span><span class="commentnick">{{ comment.nick }}:</span> {{ comment.comment }}  </td>
                     </tr>
                 {% endfor %}
             </table>

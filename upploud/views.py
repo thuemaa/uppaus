@@ -87,5 +87,6 @@ def view(request, img_pk):
         # add comment
         newcomment = Comment.objects.create(nick=request.user, comment=com, image=img)
         newcomment.save()
+        return redirect('view', img_pk=img.pk)
 
     return render(request, "imageview.html", {'img': img, 'comments': comments})
