@@ -3,9 +3,11 @@
 
 {% block content %}
     <div class="pagenavigation_div">
-        {% if cur_page != 1%}<a href="{% url 'upploudhome' cur_page=prev_page %}"><< </a>{%  endif %}
+        {%  if cur_page != 1 and usermode %}<a href="{% url 'userimages' cur_page=prev_page %}"><<
+        {% elif cur_page != 1%}<a href="{% url 'thumbnails' cur_page=prev_page %}"><< </a>{%  endif %}
         <input type="text" value="{{ cur_page }}">  /  <span class="maxpage_span">{{ max_pages }}</span>
-        {% if cur_page < max_pages %}<a href="{% url 'upploudhome' cur_page=next_page %}"> >></a><br>{% endif %}
+        {%  if cur_page < max_pages  and usermode %}<a href="{% url 'userimages' cur_page=next_page %}"> >>
+        {% elif cur_page < max_pages %}<a href="{% url 'thumbnails' cur_page=next_page %}"> >></a><br>{% endif %}
 
     </div>
 

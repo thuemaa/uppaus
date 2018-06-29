@@ -9,10 +9,10 @@ from .handletags import strip_tagfield
 from .forms import ImageForm
 
 
-# Home view. Display user uploaded images by date. TODO: by views
+# Home view. Display all uploaded images by date. TODO: by views
 # Display 20 images at a time by descending order.
 # PARAM page = current page of images. (newest images at page no 1 etc)
-def upploudhome(request, cur_page=1):
+def thumbnails(request, cur_page=1, usermode=False):
     # TODO: test for negative cur_page, implement fix
     p = (cur_page - 1) * 20
     pn = p + 20
@@ -22,11 +22,16 @@ def upploudhome(request, cur_page=1):
     next_page = cur_page + 1
     prev_page = cur_page - 1
     # Get 20 images in descending order
-    images = Image.objects.order_by('-date')[p:pn]
+    if usermode and request.user.is_authenticated:
+        # change max_pages count to user images maxpage count
+        max_pages = ceil(Image.objects.filter(uploaded_by=request.user).count() / 20)
+        images = Image.objects.filter(uploaded_by=request.user).order_by('-date')[p:pn]
+    else:
+        images = Image.objects.order_by('-date')[p:pn]
     if not images:
         raise Http404()
 
-    return render(request, 'upploudhome.html', { 'images': images, 'cur_page': cur_page, 'next_page': next_page, 'prev_page': prev_page, 'max_pages': max_pages})
+    return render(request, 'thumbnails.html', { 'images': images, 'cur_page': cur_page, 'next_page': next_page, 'prev_page': prev_page, 'max_pages': max_pages, 'usermode': usermode})
 
 
 def usersignup(request):
@@ -44,11 +49,6 @@ def usersignup(request):
         sform = UserCreationForm()
 
     return render(request, "signup.html", {'sform': sform})
-
-
-# display user's uploaded images
-def userimages(request):
-    return render(request, "userimages.html")
 
 
 # upload view
