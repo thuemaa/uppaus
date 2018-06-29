@@ -128,5 +128,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #Login & logout redirect
-LOGOUT_REDIRECT_URL = 'upploudhome'
-LOGIN_REDIRECT_URL = 'upploudhome'
+LOGOUT_REDIRECT_URL = 'thumbnails'
+LOGIN_REDIRECT_URL = 'thumbnails'
