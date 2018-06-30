@@ -10,5 +10,7 @@ urlpatterns = [
     path('signup/', views.usersignup, name='usersignup'),
     path('userimages/<int:cur_page>', views.thumbnails, {'usermode' : True}, name='userimages'),
     path('upload/', views.upload, name='upload'),
-    path('view/<int:img_pk>', views.view, name='view')
+    path('view/<int:img_pk>', views.view, name='view'),
+    path('taglist', views.taglist, name='taglist'),
+
 ]

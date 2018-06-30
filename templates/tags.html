@@ -1,0 +1,12 @@
+{%  extends 'upploudbase.html' %}
+
+{% block content %}
+
+    <div class="view_container_div">
+        {% for t in tags %}
+            <span class="tagspan">{{ t.name }}:</span>
+            <span class="tagcount">{{ t.image_set.all.count }}</span>
+        {% endfor %}
+    </div>
+
+{% endblock %}

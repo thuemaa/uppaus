@@ -90,3 +90,9 @@ def view(request, img_pk):
         return redirect('view', img_pk=img.pk)
 
     return render(request, "imageview.html", {'img': img, 'comments': comments})
+
+def taglist(request):
+    # TODO: exception for 0 tags
+    tags = Tag.objects.order_by('name')
+
+    return render(request, "tags.html", {'tags': tags})
