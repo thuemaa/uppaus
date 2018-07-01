@@ -12,26 +12,31 @@ from .forms import ImageForm
 # Home view. Display all uploaded images by date. TODO: by views
 # Display 20 images at a time by descending order.
 # PARAM page = current page of images. (newest images at page no 1 etc)
-def thumbnails(request, cur_page=1, usermode=False):
+# usermode and tagmode: if bool, display the users uploaded images or all images with spesific tag
+def thumbnails(request, tag_pk=0, cur_page=1, usermode=False, tagmode=False):
     # TODO: test for negative cur_page, implement fix
+    # p: start index, pn: end index
     p = (cur_page - 1) * 20
     pn = p + 20
-    # calculate the number of image pages.
-    max_pages = ceil(Image.objects.all().count() / 20)
     # set variable for next and previous pages. Required for url creation in template
     next_page = cur_page + 1
     prev_page = cur_page - 1
-    # Get 20 images in descending order
+    # Get 20 images in descending order by date. Calculate the maximum pages of images
     if usermode and request.user.is_authenticated:
         # change max_pages count to user images maxpage count
         max_pages = ceil(Image.objects.filter(uploaded_by=request.user).count() / 20)
         images = Image.objects.filter(uploaded_by=request.user).order_by('-date')[p:pn]
+    elif tagmode and tag_pk != 0:
+        tag = Tag.objects.get(pk=tag_pk)
+        max_pages = ceil(tag.image_set.all().count() / 20)
+        images = tag.image_set.all().order_by('-date')[p:pn]
     else:
         images = Image.objects.order_by('-date')[p:pn]
+        max_pages = ceil(Image.objects.all().count() / 20)
     if not images:
         raise Http404()
 
-    return render(request, 'thumbnails.html', { 'images': images, 'cur_page': cur_page, 'next_page': next_page, 'prev_page': prev_page, 'max_pages': max_pages, 'usermode': usermode})
+    return render(request, 'thumbnails.html', {'images': images, 'cur_page': cur_page, 'next_page': next_page, 'prev_page': prev_page, 'max_pages': max_pages, 'usermode': usermode})
 
 
 def usersignup(request):

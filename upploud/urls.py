@@ -12,5 +12,5 @@ urlpatterns = [
     path('upload/', views.upload, name='upload'),
     path('view/<int:img_pk>', views.view, name='view'),
     path('taglist', views.taglist, name='taglist'),
-
+    path('tags/<int:tag_pk>/<int:cur_page>', views.thumbnails, {'tagmode': True}, name='tags')
 ]
