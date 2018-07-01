@@ -27,13 +27,18 @@ def thumbnails(request, tag_pk=0, cur_page=1, usermode=False, tagmode=False):
         max_pages = ceil(Image.objects.filter(uploaded_by=request.user).count() / 20)
         images = Image.objects.filter(uploaded_by=request.user).order_by('-date')[p:pn]
     elif tagmode and tag_pk != 0:
-        tag = Tag.objects.get(pk=tag_pk)
+        try:
+            tag = Tag.objects.get(pk=tag_pk)
+        # redirect to taglist if tag does not exist.
+        except:
+            return redirect('taglist')
         max_pages = ceil(tag.image_set.all().count() / 20)
         images = tag.image_set.all().order_by('-date')[p:pn]
     else:
         images = Image.objects.order_by('-date')[p:pn]
         max_pages = ceil(Image.objects.all().count() / 20)
     if not images:
+        # TODO: add custom 404 page for: user with no uploaded images, redirect to front page urlpage > max_page,
         raise Http404()
 
     return render(request, 'thumbnails.html', {'images': images, 'cur_page': cur_page, 'next_page': next_page, 'prev_page': prev_page, 'max_pages': max_pages, 'usermode': usermode})
@@ -49,7 +54,7 @@ def usersignup(request):
         if sform.is_valid():
             user = sform.save()
             login(request, user)
-            return redirect('/upploud/')
+            return redirect('thumbnails')
     else:
         sform = UserCreationForm()
 
@@ -72,7 +77,7 @@ def upload(request):
             # adds tags to image.Tag manytomany field
             strip_tagfield(request.POST.get('tagfield'), image)
 
-            return redirect('/upploud/')
+            return redirect('thumbnails')
     else:
         form = ImageForm()
 

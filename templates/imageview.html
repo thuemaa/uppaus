@@ -12,9 +12,9 @@
             <div class="view_tags_div">Tags:
                 {% for t in img.tags.all %}
                     {% if forloop.last %}
-                        {{ t.name }}
+                        <a href="{% url 'tags' cur_page=1 tag_pk=t.pk %}">{{ t.name }}</a>
                     {% else %}
-                        {{ t.name }},
+                        <a href="{% url 'tags' cur_page=1 tag_pk=t.pk %}">{{ t.name }},</a>
                     {% endif %}
                 {% endfor %}
             </div>
