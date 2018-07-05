@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    background-color: #bee5eb;
+    background-color: #c4c9d3;
 }
 
 
@@ -9,10 +9,10 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    height: 2.4rem;
+    height: 3.4rem;
     z-index: 999;
     border-bottom: 1px solid grey;
-    background-color: #b1dfbb;
+    background-color: #97A0B3;
 }
 
 .navigationbar h3 {
@@ -40,7 +40,7 @@ body {
 .image_container_div {
     position: relative;
     overflow: hidden;
-    width: 90%;
+    width: 100%;
     margin: auto;
     padding: 0px;
     display: flex;
@@ -51,11 +51,19 @@ body {
 .image_thumbnail_div {
     width: 300px;
     height: 300px;
-    margin: 15px;
+    margin: 5px;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/*smaller thumbnail div for smaller screen*/
+@media only screen and (max-device-width: 619px) and (min-device-width: 420px) {
+    .image_thumbnail_div {
+        width: 200px;
+        height: 200px;
+    }
 }
 
 .image_thumbnail_div img {
@@ -138,7 +146,7 @@ body {
     text-align: center;
     width: 250px;
     margin: auto;
-    margin-top: 3.0rem;
+    margin-top: 4.0rem;
     padding: 10px;
 }
 
